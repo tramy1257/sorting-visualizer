@@ -1,23 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import SelectionSort from './components/SortingPanels/SelectionSort/SelectionSort';
 
 function App() {
+  let array = [2, 5, 6, 1, 7, 9, 4, 3, 8];
+  const renderArray = (arr) => arr.map( (num) => num + " ");
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <SelectionSort />
+      <p>Array to sort: </p>
+      <p>{renderArray(array)}</p>
+      <p>Sorted Array: </p>
+      <p>{renderArray(array)}</p>
+      
+
     </div>
   );
 }

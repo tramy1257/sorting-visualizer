@@ -1,0 +1,14 @@
+.SelectionVisualizer {
+  margin: auto;
+  width: auto;
+  height: 500px;
+  background-color: #3a3a3a;
+  padding: 40px 2% 40px 2%;
+}
+
+.red {
+  background-color: red;
+}
+
+
+
