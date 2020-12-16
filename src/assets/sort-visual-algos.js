@@ -1,9 +1,7 @@
 export const logIndexMap = {
   LOG_TYPE: 0,
-  ORIGINAL_IDX1: 1,
-  ORIGINAL_IDX2: 2,
-  IDX1: 3,
-  IDX2: 4,
+  INI_IDX1: 1,
+  INI_IDX2: 2,
 };
 
 let operationLog = [];
@@ -16,17 +14,26 @@ export const getOperationLog = (arr) => {
 
 // --------- Simple sort ------------
 export const simpleSort = (arr) => {
-  let arrCopy = arr.map( (element, index) => ({val: element, idx: index}) );
+  let arrCopy = [...arr]; // Prevent mutation
+  // arrIniIndex stores the index of each element in the initial unsorted list
+  let arrIniIndex = arrCopy.map((ele, index) => index);
+
+  // Sorting:
   for (let i = 0; i < arrCopy.length - 1; ++i) {
     for (let j = i + 1; j < arrCopy.length; ++j) {
-      // Log a comparison operation
-      operationLog.push(['compare', arrCopy[i].idx, arrCopy[j].idx]);
-      if (arrCopy[j].val < arrCopy[i].val) {
-        operationLog.push(['swap', arrCopy[i].idx, arrCopy[j].idx, i, j]); // Log a swap operation
+      operationLog.push(['compare', arrIniIndex[i], arrIniIndex[j]]);
+
+      if (arrCopy[j] < arrCopy[i]) {
+        operationLog.push(['swap', arrIniIndex[i], arrIniIndex[j]]);
+
         swap(arrCopy, i, j);
+        swap(arrIniIndex, i, j);
+
+        operationLog.push(['swap-done', arrIniIndex[i], arrIniIndex[j]]);
       } // if
-      // Log 'done' when done comparing & swaping to restore color
-      operationLog.push(['done', arrCopy[i].idx, arrCopy[j].idx]);
+      else {
+        operationLog.push(['compare-done', arrIniIndex[i], arrIniIndex[j]]);
+      }
     } // inner for
   } // outer for
   return arrCopy;

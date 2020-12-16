@@ -10,11 +10,11 @@ const SWAP_COLOR = zenburnColor.blue;
 const UNSORTED_COLOR = zenburnColor.grey;
 
 // Program argument
-const STEP_SPEED = 10; // Set animating speed of each step (in ms)
+const STEP_SPEED = 100; // Set animating speed of each step (in ms)
 
 class SelectionSort extends React.Component { 
   state = {
-    array: [3,5,7,2,4,7,9,10,6,6],
+    array: [5,7,2,6,3,9,3,5,7,2],
     sorted: false
   };
 
@@ -26,27 +26,27 @@ class SelectionSort extends React.Component {
     }, i * STEP_SPEED);
   }
 
-  swapOp = (i, bar1, bar2, oriIdx1, oriIdx2, newIdx1, newIdx2, barWidth) => {
+  swapOp = (i, bar1, bar2) => {
     setTimeout ( () => {
       // Change color to swap color
       bar1.style.backgroundColor = SWAP_COLOR;
       bar2.style.backgroundColor = SWAP_COLOR;
       
       // Calculate the amount to translate
-      let translateBar1 = barWidth * (newIdx2 - oriIdx1);
-      let translateBar2 = barWidth * (newIdx1 - oriIdx2);
+      let translateAmount = bar2.getBoundingClientRect().x - 
+                              bar1.getBoundingClientRect().x;
       
       // Animate translating first bar
       bar1.style.transition = `transform ${STEP_SPEED / 1000}s`;
-      bar1.style.transform = `translateX(${translateBar1}px)`;
+      bar1.style.transform = `translateX(${translateAmount}px)`;
 
       // Animate translating second bar
       bar2.style.transition = `transform ${STEP_SPEED / 1000}s`;
-      bar2.style.transform = `translateX(${translateBar2}px)`;
+      bar2.style.transform = `translateX(${-translateAmount}px)`;
     }, i * STEP_SPEED);
   }
 
-  doneOp = (i, bar1, bar2) => {
+  compareDoneOp = (i, bar1, bar2) => {
     setTimeout ( () => {
       // Change color to unsorted color
       bar1.style.backgroundColor = UNSORTED_COLOR;
@@ -54,16 +54,34 @@ class SelectionSort extends React.Component {
     }, i * STEP_SPEED);
   }
 
+  swapDoneOp = (i, bar1, bar2, idx1, idx2) => {
+    setTimeout ( () => {
+      // Change color to unsorted color
+      bar1.style.backgroundColor = UNSORTED_COLOR;
+      bar2.style.backgroundColor = UNSORTED_COLOR;
+
+      // Clear transition property
+      bar2.style.transition = 'transform 0s';
+      bar2.style.transform = `translateX(0px)`;
+
+      bar1.style.transition = 'transform 0s';
+      bar1.style.transform = `translateX(0px)`;
+
+      // Update bar order
+      const temp = bar2.style.order;
+      bar2.style.order = bar1.style.order;
+      bar1.style.order = temp;
+    }, i * STEP_SPEED);
+  }
+
   clickHandler = () => {
     // save the operation log for animation
     const [logs, sortedArr] = getOperationLog(this.state.array);
-    const barEleWidth = document.getElementById('bar2').getBoundingClientRect().x - 
-          document.getElementById('bar1').getBoundingClientRect().x; // in pixel
 
     // Animating based on operation logs
     for (let i = 0; i < logs.length; ++i) {
-      const index1 = logs[i][logIndexMap.ORIGINAL_IDX1];
-      const index2 = logs[i][logIndexMap.ORIGINAL_IDX2];
+      const index1 = logs[i][logIndexMap.INI_IDX1];
+      const index2 = logs[i][logIndexMap.INI_IDX2];
       const bar1 = document.getElementById('bar' + index1);
       const bar2 = document.getElementById('bar' + index2);
 
@@ -72,12 +90,13 @@ class SelectionSort extends React.Component {
           this.compareOp(i, bar1, bar2);
           break;
         case 'swap':
-          const newIdx1 = logs[i][logIndexMap.IDX1];
-          const newIdx2 = logs[i][logIndexMap.IDX2];
-          this.swapOp(i, bar1, bar2, index1, index2, newIdx1, newIdx2, barEleWidth);
+          this.swapOp(i, bar1, bar2);
           break;
-        case 'done':
-          this.doneOp(i, bar1, bar2);
+        case 'compare-done':
+          this.compareDoneOp(i, bar1, bar2);
+          break;
+        case 'swap-done':
+          this.swapDoneOp(i, bar1, bar2, index1, index2);
           break;
         default:
           break;
@@ -92,23 +111,6 @@ class SelectionSort extends React.Component {
   };
 
   testHandler = () => {
-    const box1 = document.getElementById('bar0');
-    const box2 = document.getElementById('bar2');
-
-    const translateValue = box2.getBoundingClientRect().x - box1.getBoundingClientRect().x;
-    
-    const barEleWidth = document.getElementById('bar2').getBoundingClientRect().x - 
-          document.getElementById('bar1').getBoundingClientRect().x; // in pixel
-
-      box2.style.transition = 'transform 0.5s';
-      box2.style.transform = `translateX(${barEleWidth * 4}px)`;
-      
-      setTimeout(()=> {
-      box2.style.transition = 'transform 0.5s';
-      box2.style.transform = `translateX(${barEleWidth * -1}px)`;
-
-      }, 500);
-      console.log('done') ;
   };
 
   componentDidUpdate() {
