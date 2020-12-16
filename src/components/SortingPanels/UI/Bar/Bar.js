@@ -1,6 +1,6 @@
 import React from 'react';
-import classes from './Bar.module.css';
 import { zenburnColor } from '../../../../assets/colors';
+//import Radium from radium;
 
 const SORTED_COLOR = zenburnColor.green;
 const UNSORTED_COLOR = zenburnColor.grey;
@@ -27,8 +27,7 @@ const bar = (props) => {
   return (
     <div 
       id={'bar' + props.barIdx}
-      style={barStyle}
-      className={classes.Bar}>
+      style={barStyle}>
       <p style={textStyle}>{props.value}</p>
     </div>
   );
