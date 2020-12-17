@@ -2,16 +2,17 @@ import React from 'react';
 import Aux from '../../../hoc/Aux';
 import SelectionVisualizer from './SelectionVisualizer/SelectionVisualizer';
 import { getOperationLog } from '../../../assets/sort-visual-algos';
-import { zenburnColor } from '../../../assets/colors';
+import colors from '../../../assets/colors';
 import animationOps from '../../../assets/animation-ops';
+import ControlPanel from '../../ControlPanel/ControlPanel';
 
 // color for color-coding operation
-const COMPARE_COLOR = zenburnColor.tan;
-const SWAP_COLOR = zenburnColor.blue;
-const UNSORTED_COLOR = zenburnColor.grey;
+const COMPARE_COLOR = colors.tan;
+const SWAP_COLOR = colors.blue;
+const UNSORTED_COLOR = colors.grey;
 
 // Program argument
-const STEP_SPEED = 10; // Set animating speed of each step (in ms)
+const STEP_SPEED = 100; // Set animating speed of each step (in ms)
 
 class SelectionSort extends React.Component { 
   state = {
@@ -69,12 +70,15 @@ class SelectionSort extends React.Component {
   render() {
     return (
       <Aux>
-        <h1>Selection Sort</h1>
-        <SelectionVisualizer sorted={this.state.sorted} array={this.state.array}/>
-        <button onClick={this.sortHandler.bind(this, 'simple')}>Simple Sort</button>
-        <button onClick={this.sortHandler.bind(this, 'selection')}>Selection Sort</button>
-        <button onClick={this.sortHandler.bind(this, 'bubble')}>Bubble Sort</button>
-        <button onClick={this.sortHandler.bind(this, 'insertion')}>Insertion Sort</button>
+        <h1>Sorting Visualizer</h1>
+        <SelectionVisualizer 
+          sorted={this.state.sorted} 
+          array={this.state.array}/>
+        <ControlPanel 
+          selectionClicked={this.sortHandler.bind(this, 'selection')}
+          bubbleClicked={this.sortHandler.bind(this, 'bubble')}
+          insertionClicked={this.sortHandler.bind(this, 'insertion')}
+          simpleClicked={this.sortHandler.bind(this, 'simple')}/>
         <button onClick={this.testHandler}>Test</button>
       </Aux>
     );

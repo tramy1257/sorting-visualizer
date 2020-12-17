@@ -1,4 +1,4 @@
-export const zenburnColor = {
+const zenburnColor = {
   background: '#3a3a3a',
   grey: '#99a49e',
   red: '#d38585',
@@ -7,3 +7,5 @@ export const zenburnColor = {
   tan: '#d7af86',
   green: '#86ae86'
 }
+
+export default zenburnColor;

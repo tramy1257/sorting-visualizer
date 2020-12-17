@@ -1,0 +1,18 @@
+:root {
+  --grey: #99a49e;
+  --black: #3a3a3a;
+}
+
+.Button {
+    width: 150px;
+    height: 60px;
+    background-color: transparent;
+    border: 3px solid var(--grey);
+    color: var(--grey);
+    cursor: pointer;
+}
+
+.Button:hover {
+  background-color: var(--grey);
+  color: var(--black);
+}

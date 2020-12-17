@@ -1,4 +1,5 @@
 import SelectionSort from './components/SortingPanels/SelectionSort/SelectionSort';
+import colors from './assets/colors';
 
 function App() {
   let array = [2, 5, 6, 1, 7, 9, 4, 3, 8];
@@ -7,12 +8,6 @@ function App() {
   return (
     <div className="App">
       <SelectionSort />
-      <p>Array to sort: </p>
-      <p>{renderArray(array)}</p>
-      <p>Sorted Array: </p>
-      <p>{renderArray(array)}</p>
-      
-
     </div>
   );
 }

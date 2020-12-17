@@ -1,9 +1,9 @@
 import React from 'react';
-import { zenburnColor } from '../../../../assets/colors';
+import colors from '../../../../assets/colors';
 //import Radium from radium;
 
-const SORTED_COLOR = zenburnColor.green;
-const UNSORTED_COLOR = zenburnColor.grey;
+const SORTED_COLOR = colors.green;
+const UNSORTED_COLOR = colors.grey;
 
 const bar = (props) => {
   const calcMargin = (barWidth) => {
