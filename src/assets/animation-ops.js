@@ -1,57 +1,65 @@
-const compareOp = (i, bar1, bar2, compareColor) => {
+const compareOp = (i, bar1, bar2, compareColor, stepSpeed) => {
   setTimeout ( () => {
     // Change color to compare color
     bar1.style.backgroundColor = compareColor;
     bar2.style.backgroundColor = compareColor;
-  }, i * STEP_SPEED);
+  }, i * stepSpeed);
 }
 
-const swapOp = (i, bar1, bar2, order1, order2, barWidth) => {
+const swapOp = (i, bar1, bar2, swapColor, stepSpeed) => {
   setTimeout ( () => {
     // Change color to swap color
-    bar1.style.backgroundColor = SWAP_COLOR;
-    bar2.style.backgroundColor = SWAP_COLOR;
+    bar1.style.backgroundColor = swapColor;
+    bar2.style.backgroundColor = swapColor;
     
     // Calculate the amount to translate
-    let translateBar1 = barWidth * (newIdx2 - oriIdx1);
-    let translateBar2 = barWidth * (newIdx1 - oriIdx2);
+    let translateAmount = bar2.getBoundingClientRect().x - 
+                            bar1.getBoundingClientRect().x;
     
     // Animate translating first bar
-    bar1.style.transition = `transform ${STEP_SPEED / 1000}s`;
-    bar1.style.transform = `translateX(${translateBar1}px)`;
+    bar1.style.transition = `transform ${stepSpeed / 1000}s`;
+    bar1.style.transform = `translateX(${translateAmount}px)`;
 
     // Animate translating second bar
-    bar2.style.transition = `transform ${STEP_SPEED / 1000}s`;
-    bar2.style.transform = `translateX(${translateBar2}px)`;
-
-    // Change order
-
-  }, i * STEP_SPEED);
+    bar2.style.transition = `transform ${stepSpeed / 1000}s`;
+    bar2.style.transform = `translateX(${-translateAmount}px)`;
+  }, i * stepSpeed);
 }
 
-const swapDoneOp = (i, bar1, bar2) => {
+const compareDoneOp = (i, bar1, bar2, unsortedColor, stepSpeed) => {
   setTimeout ( () => {
     // Change color to unsorted color
-    bar1.style.backgroundColor = UNSORTED_COLOR;
-    bar2.style.backgroundColor = UNSORTED_COLOR;
-  }, i * STEP_SPEED);
+    bar1.style.backgroundColor = unsortedColor;
+    bar2.style.backgroundColor = unsortedColor;
+  }, i * stepSpeed);
 }
 
-const compareDoneOp = (i, bar1, bar2) => {
+const swapDoneOp = (i, bar1, bar2, unsortedColor, stepSpeed) => {
   setTimeout ( () => {
     // Change color to unsorted color
-    bar1.style.backgroundColor = UNSORTED_COLOR;
-    bar2.style.backgroundColor = UNSORTED_COLOR;
+    bar1.style.backgroundColor = unsortedColor;
+    bar2.style.backgroundColor = unsortedColor;
 
-    //bar2.style.transition = `transform 0s`;
-    //bar2.style.transform = `translateX(0)`;
-  }, i * STEP_SPEED);
+    // Clear transition property
+    bar2.style.transition = 'transform 0s';
+    bar2.style.transform = `translateX(0px)`;
+
+    bar1.style.transition = 'transform 0s';
+    bar1.style.transform = `translateX(0px)`;
+
+    // Update bar order
+    const temp = bar2.style.order;
+    bar2.style.order = bar1.style.order;
+    bar1.style.order = temp;
+  }, i * stepSpeed);
 }
 
-export default {
+const animationOps = {
   compareOp: compareOp,
   swapOp: swapOp,
   swapDoneOp: swapDoneOp,
   compareDoneOp: compareDoneOp
 }
 
+
+export default animationOps;
