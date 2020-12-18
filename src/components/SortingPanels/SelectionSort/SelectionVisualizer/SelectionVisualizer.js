@@ -3,10 +3,13 @@ import classes from './SelectionVisualizer.module.css';
 import Bar from '../../UI/Bar/Bar';
 
 class selectionVisualizer extends React.Component{ 
-  array = this.props.array;
-
   componentDidUpdate() {
     console.log('[SelectionVisualizer.js] componentDidUpdate');
+  }
+
+  shouldComponentUpdate(nextProps) {
+    return (nextProps.array !== this.props.array) ||
+              (nextProps.sorted !== this.props.sorted);
   }
 
   render () {
@@ -19,12 +22,12 @@ class selectionVisualizer extends React.Component{
     };
 
     // The list of bars
-    let bars = this.array.map( (value, index) => {
+    let bars = this.props.array.map( (value, index) => {
       return <Bar 
         sorted={this.props.sorted}
         barIdx={index}
         value={value} 
-        barHeight={value/Math.max(...this.array)*100}
+        barHeight={value/Math.max(...this.props.array)*100}
         barWidth={80} 
         key={index} />;
     } );

@@ -11,16 +11,24 @@ const COMPARE_COLOR = colors.tan;
 const SWAP_COLOR = colors.blue;
 const UNSORTED_COLOR = colors.grey;
 
-// Program argument
-const STEP_SPEED = 100; // Set animating speed of each step (in ms)
-
 class SelectionSort extends React.Component { 
-  state = {
-    array: [5,7,2,6,2,7,9,8,4,3,7,5,1,9],//3,9,3,5,7,2],
-    sorted: false
+    state = {
+      array: [3,4,5,6,7,4,2,4,6,2],
+      sortAlgs: 'simple',
+      stepSpeed: 100,
+      sorted: false
+    };
+
+  randomArr = (size) => {
+    let newArr = [];
+    for (let i = 0; i < size; ++i) {
+      newArr.push(Math.floor(Math.random() * 99 + 1));
+    }
+    return newArr;
   };
 
   sortHandler = (sortType) => {
+    console.log(this.state.array);
     // save the operation log for animation
     const [logs, sortedArr] = getOperationLog(this.state.array, sortType);
     // each element in logs is an array of length 3, the 3 constants below
@@ -35,16 +43,16 @@ class SelectionSort extends React.Component {
 
       switch (logs[i][LOG_TYPE]) {
         case 'compare':
-          animationOps.compareOp(i, bar1, bar2, COMPARE_COLOR, STEP_SPEED);
+          animationOps.compareOp(i, bar1, bar2, COMPARE_COLOR, this.state.stepSpeed);
           break;
         case 'swap':
-          animationOps.swapOp(i, bar1, bar2, SWAP_COLOR, STEP_SPEED);
+          animationOps.swapOp(i, bar1, bar2, SWAP_COLOR, this.state.stepSpeed);
           break;
         case 'compare-done':
-          animationOps.compareDoneOp(i, bar1, bar2, UNSORTED_COLOR, STEP_SPEED);
+          animationOps.compareDoneOp(i, bar1, bar2, UNSORTED_COLOR, this.state.stepSpeed);
           break;
         case 'swap-done':
-          animationOps.swapDoneOp(i, bar1, bar2, UNSORTED_COLOR, STEP_SPEED);
+          animationOps.swapDoneOp(i, bar1, bar2, UNSORTED_COLOR, this.state.stepSpeed);
           break;
         default:
           break;
@@ -54,9 +62,22 @@ class SelectionSort extends React.Component {
     // Change all bars to green indecating that they are in sorted order and
     // update the array state to the sorted one
     setTimeout (() => {
-      this.setState({sorted: true});
-      this.setState({array: sortedArr});
-    }, logs.length * STEP_SPEED);
+      this.setState({array: sortedArr, sorted: true});
+    }, logs.length * this.state.stepSpeed);
+  };
+
+  selectAlgoHandler = (algoName) => {
+    this.setState({sortAlgs: algoName});
+  };
+
+  changeSpeedHandler = (newSpeed) => {
+    this.setState({stepSpeed: newSpeed});
+  };
+
+  randomArrayHandler = () => {
+    const arrSize = 20;
+    const newArr = this.randomArr(arrSize);
+    this.setState({array: newArr});
   };
 
   // For testing
@@ -75,10 +96,14 @@ class SelectionSort extends React.Component {
           sorted={this.state.sorted} 
           array={this.state.array}/>
         <ControlPanel 
-          selectionClicked={this.sortHandler.bind(this, 'selection')}
-          bubbleClicked={this.sortHandler.bind(this, 'bubble')}
-          insertionClicked={this.sortHandler.bind(this, 'insertion')}
-          simpleClicked={this.sortHandler.bind(this, 'simple')}/>
+          randomize={this.randomArrayHandler}
+          changeSpeed={this.changeSpeedHandler}
+          currentAlgo={this.state.sortAlgs}
+          sortClicked={this.sortHandler.bind(this, this.state.sortAlgs)}
+          selectionClicked={this.selectAlgoHandler.bind(this, 'selection')}
+          bubbleClicked={this.selectAlgoHandler.bind(this, 'bubble')}
+          insertionClicked={this.selectAlgoHandler.bind(this, 'insertion')}
+          simpleClicked={this.selectAlgoHandler.bind(this, 'simple')}/>
         <button onClick={this.testHandler}>Test</button>
       </Aux>
     );
