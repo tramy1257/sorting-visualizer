@@ -12,12 +12,25 @@ const SWAP_COLOR = colors.blue;
 const UNSORTED_COLOR = colors.grey;
 
 // Program argument
-const STEP_SPEED = 100; // Set animating speed of each step (in ms)
+const STEP_SPEED = 10; // Set animating speed of each step (in ms)
 
 class SelectionSort extends React.Component { 
-  state = {
-    array: [5,7,2,6,2,7,9,8,4,3,7,5,1,9],//3,9,3,5,7,2],
-    sorted: false
+  constructor(props) {
+    super(props);
+    const initialArr = this.randomArr(20);
+    this.state = {
+      array: initialArr,
+      sortAlgo: 'simple',
+      sorted: false
+    };
+  }
+
+  randomArr = (size) => {
+    let newArr = [];
+    for (let i = 0; i < size; ++i) {
+      newArr.push(Math.floor(Math.random() * 99 + 1));
+    }
+    return newArr;
   };
 
   sortHandler = (sortType) => {
@@ -59,6 +72,14 @@ class SelectionSort extends React.Component {
     }, logs.length * STEP_SPEED);
   };
 
+  sortClickedHandler = () => {
+    this.sortHandler(this.state.sortAlgo);
+  }
+
+  changeAlgoHandler = (algoType) => {
+    this.setState({sortAlgo: algoType});
+  };
+
   // For testing
   testHandler = () => {
   };
@@ -75,10 +96,12 @@ class SelectionSort extends React.Component {
           sorted={this.state.sorted} 
           array={this.state.array}/>
         <ControlPanel 
-          selectionClicked={this.sortHandler.bind(this, 'selection')}
-          bubbleClicked={this.sortHandler.bind(this, 'bubble')}
-          insertionClicked={this.sortHandler.bind(this, 'insertion')}
-          simpleClicked={this.sortHandler.bind(this, 'simple')}/>
+          currentAlgo={this.state.sortAlgo}
+          sortClicked={this.sortClickedHandler}
+          selectionClicked={this.changeAlgoHandler.bind(this, 'selection')}
+          bubbleClicked={this.changeAlgoHandler.bind(this, 'bubble')}
+          insertionClicked={this.changeAlgoHandler.bind(this, 'insertion')}
+          simpleClicked={this.changeAlgoHandler.bind(this, 'simple')}/>
         <button onClick={this.testHandler}>Test</button>
       </Aux>
     );

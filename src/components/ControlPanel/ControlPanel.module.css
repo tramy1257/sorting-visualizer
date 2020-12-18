@@ -11,23 +11,37 @@
 .AlgoBtn {
   display: flex;
   justify-content: space-evenly;
-  margin: 20px;
+  flex-wrap: wrap;
   margin-top: 0;
+  align-content: space-between;
+  width: 100%;
 }
 
 .Panel {
   margin: 20px;
+  margin-top: 0;
   border: 5px solid var(--grey);
   padding: 20px;
+  width: 90%;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+
+hr {
+  border: 2px solid var(--grey);
+  width: 60%;
+  margin-bottom: 20px;
+  margin-top: 20px;
 }
 
 .Input {
   background-color: transparent;
   border: 2px solid var(--grey);
-  margin: 20px;
   height: 30px;
   width: 80%;
   color: var(--grey);
+  margin-left: 20px;
 }
 
 .InputDiv {
@@ -35,34 +49,34 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 20px;
+  width: 100%;
 }
 
 .BottomPanel {
   display: flex;
   justify-content: space-between;
   background-color: transparent;
-  width: 90%;
   margin: 0 auto;
-}
-
-.VerticalLine {
-  width: 3px;
-  background-color: var(--grey);
+  width: 100%;
 }
 
 .BottomLeft {
-  width: 50%;
+  width: 30%;
   background-color: transparent;
   display: flex;
   justify-content: center;
+  box-sizing: border-box;
+  border-right: 3px solid var(--grey);
 }
 
 .BottomRight {
-  width: 50%;
+  width: 70%;
   display: flex;
   align-items: center;
   justify-content: center;
   padding-right: 20px;
+  background-color: transparent;
 }
 
 .slider {
