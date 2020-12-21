@@ -15,7 +15,6 @@ const bar = (props) => {
     width: props.barWidth + 'px',
     margin: calcMargin(props.barWidth) + 'px',
     backgroundColor: props.sorted ? SORTED_COLOR : UNSORTED_COLOR,
-    order: props.barIdx
   };
 
   const textStyle = {
@@ -23,7 +22,11 @@ const bar = (props) => {
     marginTop: '5px',
     textAlign: 'center',
     padding: '0',
+<<<<<<< HEAD
     fontSize: '14px'
+=======
+    fontSize: '15px'
+>>>>>>> working-version
   }
 
   return (

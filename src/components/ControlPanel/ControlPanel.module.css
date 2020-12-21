@@ -20,6 +20,10 @@
   flex-wrap: wrap;
   margin-top: 0;
   align-content: space-between;
+<<<<<<< HEAD:src/components/ControlPanel/ControlPanel.module.css
+=======
+  width: 100%;
+>>>>>>> working-version:src/components/ControlPanel/ControlPane.module.css
 }
 
 .Panel {
@@ -28,13 +32,23 @@
   border: 5px solid var(--grey);
   padding: 20px;
   width: 90%;
+<<<<<<< HEAD:src/components/ControlPanel/ControlPanel.module.css
+=======
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+>>>>>>> working-version:src/components/ControlPanel/ControlPane.module.css
 }
 
 hr {
   border: 2px solid var(--grey);
   width: 60%;
   margin-bottom: 20px;
+<<<<<<< HEAD:src/components/ControlPanel/ControlPanel.module.css
   margin-top: 0;
+=======
+  margin-top: 20px;
+>>>>>>> working-version:src/components/ControlPanel/ControlPane.module.css
 }
 
 .Input {
@@ -52,6 +66,10 @@ hr {
   align-items: center;
   justify-content: center;
   margin-bottom: 20px;
+<<<<<<< HEAD:src/components/ControlPanel/ControlPanel.module.css
+=======
+  width: 100%;
+>>>>>>> working-version:src/components/ControlPanel/ControlPane.module.css
 }
 
 .BottomPanel {
@@ -59,6 +77,10 @@ hr {
   justify-content: space-between;
   background-color: transparent;
   margin: 0 auto;
+<<<<<<< HEAD:src/components/ControlPanel/ControlPanel.module.css
+=======
+  width: 100%;
+>>>>>>> working-version:src/components/ControlPanel/ControlPane.module.css
 }
 
 .BottomLeft {
@@ -68,7 +90,10 @@ hr {
   justify-content: center;
   box-sizing: border-box;
   border-right: 3px solid var(--grey);
+<<<<<<< HEAD:src/components/ControlPanel/ControlPanel.module.css
   padding-top: 20px;
+=======
+>>>>>>> working-version:src/components/ControlPanel/ControlPane.module.css
 }
 
 .BottomRight {

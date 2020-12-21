@@ -10,7 +10,11 @@
     border: 3px solid var(--grey);
     color: var(--grey);
     cursor: pointer;
+<<<<<<< HEAD
     margin-bottom: 20px;
+=======
+    margin: 0 auto;
+>>>>>>> working-version
 }
 
 .Button:hover {

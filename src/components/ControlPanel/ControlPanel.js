@@ -1,12 +1,22 @@
 import React from 'react';
 import Button from '../ControlPanel/UI/Button/Button';
+<<<<<<< HEAD
+=======
+import colors from '../../assets/colors';
+>>>>>>> working-version
 import classes from './ControlPanel.module.css';
 
 const controlPanel = (props) => { 
   return(
+<<<<<<< HEAD
     <div className={classes.SortAndPanel}>
       <Button click={props.sortClicked}>Sort</Button>
+=======
+    <Aux>
+>>>>>>> working-version
       <div className={classes.Panel}>
+        <Button click={props.sortClicked}>Sort</Button>
+        <hr />
         <div className={classes.AlgoBtn}>
           <Button 
             active={props.currentAlgo === 'selection'}
@@ -28,7 +38,11 @@ const controlPanel = (props) => {
         </div>
         <div className={classes.BottomPanel}>
           <div className={classes.BottomLeft}>
+<<<<<<< HEAD
             <Button click={props.randomize}>Randomize Array</Button>
+=======
+            <Button click={props.randomClicked}>Randomize Array</Button>
+>>>>>>> working-version
           </div>
           <div className={classes.BottomRight}>
             <label>Sort Speed: </label>
