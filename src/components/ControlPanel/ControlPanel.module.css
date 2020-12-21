@@ -56,13 +56,14 @@ hr {
 .BottomPanel {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
   background-color: transparent;
   margin: 0 auto;
   width: 100%;
 }
 
 .BottomLeft {
-  width: 30%;
+  flex-grow: 1;
   background-color: transparent;
   display: flex;
   justify-content: center;
@@ -73,9 +74,16 @@ hr {
 .BottomRight {
   width: 70%;
   display: flex;
-  align-items: center;
+  flex-flow: column;
   justify-content: center;
   padding-right: 20px;
+  background-color: transparent;
+}
+
+.SliderAndLabel {
+  display: flex;
+  width: 100%;
+  margin-left: 20px;
   background-color: transparent;
 }
 

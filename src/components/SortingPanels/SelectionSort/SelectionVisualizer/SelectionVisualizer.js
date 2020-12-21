@@ -8,6 +8,10 @@ class selectionVisualizer extends React.Component{
     console.log('[SelectionVisualizer.js] componentDidUpdate');
   }
 
+  shouldComponentUpdate(nextProps, nextState, nextContext) {
+    return nextProps.array !== this.props.array;
+  }
+
   render () {
     const array = this.props.array;
 
@@ -22,7 +26,6 @@ class selectionVisualizer extends React.Component{
     // The list of bars
     let bars = array.map( (value, index) => {
       return <Bar 
-        sorted={this.props.sorted}
         barIdx={index}
         value={value} 
         barHeight={value/Math.max(...array)*100}

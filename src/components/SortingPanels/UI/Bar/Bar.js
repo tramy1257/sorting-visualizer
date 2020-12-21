@@ -14,7 +14,7 @@ const bar = (props) => {
     height: (props.barHeight) + '%',
     width: props.barWidth + 'px',
     margin: calcMargin(props.barWidth) + 'px',
-    backgroundColor: props.sorted ? SORTED_COLOR : UNSORTED_COLOR,
+    backgroundColor: UNSORTED_COLOR,
   };
 
   const textStyle = {
