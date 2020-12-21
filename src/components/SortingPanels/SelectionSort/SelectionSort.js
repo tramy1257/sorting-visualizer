@@ -40,6 +40,12 @@ class SelectionSort extends React.Component {
     // indecate what information each index holds
     const LOG_TYPE = 0, INI_IDX1 = 1, INI_IDX2 = 2;
 
+      for (let i = 0; i < this.state.array.length; ++i) {
+        const bar = document.getElementById('bar' + i);
+        bar.style.backgroundColor = UNSORTED_COLOR;
+        bar.style.order = i;
+      }
+
     // Animating based on operation logs
     for (let i = 0; i < logs.length; ++i) {
       // Find the 2 bars objects that gets swapped
@@ -67,17 +73,26 @@ class SelectionSort extends React.Component {
     // Change all bars to green indecating that they are in sorted order and
     // update the array state to the sorted one
     setTimeout (() => {
-      this.setState({sorted: true});
-      this.setState({array: sortedArr});
+      this.setState({sorted: true, array: sortedArr});
+      for (let i = 0; i < this.state.array.length; ++i) {
+        const bar = document.getElementById('bar' + i);
+        bar.style.order = 0;
+      }
     }, logs.length * STEP_SPEED);
   };
 
   sortClickedHandler = () => {
     this.sortHandler(this.state.sortAlgo);
-  }
+  };
 
   changeAlgoHandler = (algoType) => {
     this.setState({sortAlgo: algoType});
+  };
+
+  clickRandomHandler = () => {
+    console.log('clicked');
+    const newArr = this.randomArr(20);
+    this.setState({array: newArr, sorted: false});
   };
 
   // For testing
@@ -96,6 +111,7 @@ class SelectionSort extends React.Component {
           sorted={this.state.sorted} 
           array={this.state.array}/>
         <ControlPanel 
+          randomClicked={this.clickRandomHandler}
           currentAlgo={this.state.sortAlgo}
           sortClicked={this.sortClickedHandler}
           selectionClicked={this.changeAlgoHandler.bind(this, 'selection')}

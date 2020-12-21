@@ -32,7 +32,7 @@ const controlPanel = (props) => {
         </div>
         <div className={classes.BottomPanel}>
           <div className={classes.BottomLeft}>
-            <Button>Randomize Array</Button>
+            <Button click={props.randomClicked}>Randomize Array</Button>
           </div>
           <div className={classes.VerticalLine}></div>
           <div className={classes.BottomRight}>
