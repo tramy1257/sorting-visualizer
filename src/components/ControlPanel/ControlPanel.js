@@ -1,11 +1,16 @@
 import React from 'react';
 import Button from '../ControlPanel/UI/Button/Button';
 import classes from './ControlPanel.module.css';
+import Aux from '../../hoc/Aux';
 
 const controlPanel = (props) => { 
   return(
-      <div className={classes.Panel}>
+    <Aux>
+      <div className={classes.SortAndStop}>
         <Button click={props.sortClicked}>Sort</Button>
+        <Button click={props.abortClicked}>Abort</Button>
+      </div>
+      <div className={classes.Panel}>
         <hr />
         <div className={classes.AlgoBtn}>
           <Button 
@@ -35,7 +40,7 @@ const controlPanel = (props) => {
             <div className={classes.SliderAndLabel}>
               <label>Sorting Speed: </label>
               <input 
-                min='0' max='500'
+                min='10' max='500'
                 step='10'
                 type='range' 
                 onChange={event => props.changeSpeed(event.target.value)}
@@ -53,6 +58,7 @@ const controlPanel = (props) => {
           </div>
         </div>
       </div>
+    </Aux>
   );
 };
 

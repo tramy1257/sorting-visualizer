@@ -8,6 +8,15 @@
   --green: #86ae86;
 }
 
+.SortAndStop {
+  margin: 0 auto;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  width: 50%;
+  align-content: space-evenly;
+}
+
 .AlgoBtn {
   display: flex;
   justify-content: space-evenly;

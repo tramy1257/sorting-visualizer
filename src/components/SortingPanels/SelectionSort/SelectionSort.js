@@ -36,6 +36,9 @@ class SelectionSort extends React.Component {
     return newArr;
   };
 
+  animation = null;
+  doneAnimate = null;
+
   sortHandler = (sortType) => {
     // save the operation log for animation
     const [logs, sortedArr] = getOperationLog(this.state.array, sortType);
@@ -43,39 +46,50 @@ class SelectionSort extends React.Component {
     // indecate what information each index holds
     const LOG_TYPE = 0, INI_IDX1 = 1, INI_IDX2 = 2;
 
-      for (let i = 0; i < this.state.array.length; ++i) {
-        const bar = document.getElementById('bar' + i);
-        bar.style.backgroundColor = UNSORTED_COLOR;
-        bar.style.order = i;
-      }
+    for (let i = 0; i < this.state.array.length; ++i) {
+      const bar = document.getElementById('bar' + i);
+      bar.style.backgroundColor = UNSORTED_COLOR;
+      bar.style.order = i;
+    }
 
     // Animating based on operation logs
-    for (let i = 0; i < logs.length; ++i) {
-      // Find the 2 bars objects that gets swapped
-      const bar1 = document.getElementById('bar' + logs[i][INI_IDX2]);
-      const bar2 = document.getElementById('bar' + logs[i][INI_IDX1]);
+    let i = 0; // controling loop
+    this.animation = setInterval(() => {
+      if (i >= logs.length)
+      {
+        clearInterval(this.animation);
+      }
+      else {
+        // Find the 2 bars objects that gets swapped
+        const bar1 = document.getElementById('bar' + logs[i][INI_IDX2]);
+        const bar2 = document.getElementById('bar' + logs[i][INI_IDX1]);
 
-      switch (logs[i][LOG_TYPE]) {
-        case 'compare':
-          animationOps.compareOp(i, bar1, bar2, COMPARE_COLOR, this.state.stepSpeed);
-          break;
-        case 'swap':
-          animationOps.swapOp(i, bar1, bar2, SWAP_COLOR, this.state.stepSpeed);
-          break;
-        case 'compare-done':
-          animationOps.compareDoneOp(i, bar1, bar2, UNSORTED_COLOR, this.state.stepSpeed);
-          break;
-        case 'swap-done':
-          animationOps.swapDoneOp(i, bar1, bar2, UNSORTED_COLOR, this.state.stepSpeed);
-          break;
-        default:
-          break;
-      } // switch
-    } // for
+          switch (logs[i][LOG_TYPE]) {
+            case 'compare':
+              animationOps.compareOp(bar1, bar2, COMPARE_COLOR);
+              break;
+            case 'swap':
+              animationOps.swapOp(bar1, bar2, SWAP_COLOR, this.state.stepSpeed);
+              break;
+            case 'compare-done':
+              animationOps.compareDoneOp(bar1, bar2, UNSORTED_COLOR);
+              break;
+            case 'swap-done':
+              animationOps.swapDoneOp(bar1, bar2, UNSORTED_COLOR);
+              break;
+            default:
+              break;
+          } // switch
+
+        // incrementing i for the next iteration
+        ++i;
+      }
+    }, this.state.stepSpeed);
     
     // Change all bars to green indecating that they are in sorted order and
     // update the array state to the sorted one
-    setTimeout (() => {
+    this.doneAnimate = setTimeout (() => {
+      console.log('run');
       this.setState({array: sortedArr});
       for (let i = 0; i < this.state.array.length; ++i) {
         const bar = document.getElementById('bar' + i);
@@ -86,6 +100,7 @@ class SelectionSort extends React.Component {
   };
 
   sortClickedHandler = () => {
+    this.abortClickedHandler();
     this.sortHandler(this.state.sortAlgo);
   };
 
@@ -94,6 +109,7 @@ class SelectionSort extends React.Component {
   };
 
   clickRandomHandler = () => {
+    this.abortClickedHandler();
     const newArr = this.randomArr(this.state.randomArrSize);
     this.setState({array: newArr});
     for (let i = 0; i < this.state.array.length; ++i) {
@@ -111,6 +127,18 @@ class SelectionSort extends React.Component {
     this.setState({randomArrSize: newSize});
   }
 
+  abortClickedHandler = () => {
+    clearInterval(this.animation);
+    clearTimeout(this.doneAnimate);
+
+    for (let i = 0; i < this.state.array.length; ++i) {
+      const bar = document.getElementById('bar' + i);
+      bar.style.order = 0;
+      bar.style.transform = 'translateX(0)';
+      bar.style.backgroundColor = UNSORTED_COLOR;
+    }
+  }
+
   // For testing
   testHandler = () => {
   };
@@ -126,6 +154,7 @@ class SelectionSort extends React.Component {
         <SelectionVisualizer 
           array={this.state.array}/>
         <ControlPanel 
+          abortClicked={this.abortClickedHandler}
           changeArrSize={this.changeArrSizeHandler}
           changeSpeed={this.changeSpeedHandler}
           randomClicked={this.clickRandomHandler}
