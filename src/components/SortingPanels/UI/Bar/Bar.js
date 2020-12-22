@@ -2,21 +2,18 @@ import React from 'react';
 import colors from '../../../../assets/colors';
 //import Radium from radium;
 
-const SORTED_COLOR = colors.green;
 const UNSORTED_COLOR = colors.grey;
 
 const bar = (props) => {
-  const calcMargin = (barWidth) => {
-    return barWidth / 30;
-  };
-
+  // Style for bars
   const barStyle = {
     height: (props.barHeight) + '%',
     width: props.barWidth + 'px',
-    margin: calcMargin(props.barWidth) + 'px',
+    margin: '2px',
     backgroundColor: UNSORTED_COLOR,
   };
-
+  
+  // Style for text
   const textStyle = {
     color: 'white',
     marginTop: '5px',

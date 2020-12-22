@@ -11,7 +11,6 @@ const controlPanel = (props) => {
         <Button click={props.abortClicked}>Abort</Button>
       </div>
       <div className={classes.Panel}>
-        <hr />
         <div className={classes.AlgoBtn}>
           <Button 
             active={props.currentAlgo === 'selection'}
@@ -27,10 +26,12 @@ const controlPanel = (props) => {
             click={props.simpleClicked}>Simple Sort</Button>
         </div>
         <hr />
+        { // Future feature
+        /*
         <div className={classes.InputDiv}>
           <label>Array:</label>
-          <input className={classes.Input}/>
-        </div>
+          <input className={classes.Input} value={props.array}/>
+        </div> */}
         <div className={classes.BottomPanel}>
           <div className={classes.BottomLeft}>
             <Button click={props.randomClicked}>Randomize Array</Button>

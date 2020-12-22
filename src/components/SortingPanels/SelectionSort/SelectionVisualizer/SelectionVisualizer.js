@@ -8,7 +8,7 @@ class selectionVisualizer extends React.Component{
     console.log('[SelectionVisualizer.js] componentDidUpdate');
   }
 
-  shouldComponentUpdate(nextProps, nextState, nextContext) {
+  shouldComponentUpdate(nextProps) {
     return nextProps.array !== this.props.array;
   }
 

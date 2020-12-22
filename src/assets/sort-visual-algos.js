@@ -91,12 +91,13 @@ const selectionSort = (arr, logs) => {
       } // if
     } // inner for
 
-        logs.push(['swap', arrIniIndex[i], arrIniIndex[minIdx]]);
-        // Swapping array elements and their initial indexes
-        swap(arrCopy, i, minIdx);
-        swap(arrIniIndex, i, minIdx);
+    logs.push(['swap', arrIniIndex[i], arrIniIndex[minIdx]]);
+    // Swapping array elements and their initial indexes
+    swap(arrCopy, i, minIdx);
+    swap(arrIniIndex, i, minIdx);
 
-        logs.push(['swap-done', arrIniIndex[i], arrIniIndex[minIdx]]);
+    logs.push(['swap-done', arrIniIndex[i], arrIniIndex[minIdx]]);
+    logs.push(['sorted-bar', arrIniIndex[i]]);
   } // outer for
   return arrCopy;
 };
@@ -125,6 +126,7 @@ const simpleSort = (arr, logs) => {
         logs.push(['compare-done', arrIniIndex[i], arrIniIndex[j]]);
       }
     } // inner for
+    logs.push(['sorted-bar', arrIniIndex[i]]);
   } // outer for
   return arrCopy;
 };
