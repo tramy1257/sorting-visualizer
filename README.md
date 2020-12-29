@@ -11,7 +11,6 @@
 ## Project Demo
 The live demo of this project can be found [here](https://tramy1257.github.io/sorting-visualizer/)
 
-![Gif Demo](./src/assets/img/demo/demo.gif =200x)
 <img src='./src/assets/img/demo/demo.gif' width='500px'>
 
 ## Technologies
