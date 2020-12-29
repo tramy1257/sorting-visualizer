@@ -131,6 +131,9 @@ const simpleSort = (arr, logs) => {
   return arrCopy;
 };
 
+// -------- Merge Sort --------
+
+
 // Swapping
 const swap = (arr, index1, index2) => {
 	const temp = arr[index1];

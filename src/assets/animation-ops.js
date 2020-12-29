@@ -48,7 +48,7 @@ const swapDoneOp = (bar1, bar2, unsortedColor) => {
 
 const sortedBarOp = (bar, sortedColor) => {
   bar.style.backgroundColor = sortedColor;
-}
+};
 
 const animationOps = {
   compareOp: compareOp,

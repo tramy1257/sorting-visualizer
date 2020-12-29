@@ -1,13 +1,13 @@
 import React from 'react';
-import classes from './SelectionVisualizer.module.css';
+import classes from './Bars.module.css';
 import Bar from '../../UI/Bar/Bar';
 
-class selectionVisualizer extends React.Component{ 
-
+class Bars extends React.Component{ 
+  /* Testing purpose
   componentDidUpdate() {
-    console.log('[SelectionVisualizer.js] componentDidUpdate');
+    console.log('[Bars.js] componentDidUpdate');
   }
-
+  */
   shouldComponentUpdate(nextProps) {
     return nextProps.array !== this.props.array;
   }
@@ -37,7 +37,7 @@ class selectionVisualizer extends React.Component{
     bars = <div style={barsStyle}>{bars}</div>;
 
     return (
-      <div className={classes.SelectionVisualizer}>
+      <div className={classes.Bars}>
         {bars}
       </div>
     );
@@ -45,4 +45,4 @@ class selectionVisualizer extends React.Component{
 
 };
 
-export default selectionVisualizer;
+export default Bars;

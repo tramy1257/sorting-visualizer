@@ -1,6 +1,6 @@
 import React from 'react';
 import Aux from '../../../hoc/Aux';
-import SelectionVisualizer from './SelectionVisualizer/SelectionVisualizer';
+import Bars from './Bars/Bars';
 import { getOperationLog } from '../../../assets/sort-visual-algos';
 import colors from '../../../assets/colors';
 import animationOps from '../../../assets/animation-ops';
@@ -14,8 +14,9 @@ const SORTED_COLOR = colors.green;
 
 // program default arguments
 const INITIAL_ARR_SIZE = 15;
+const INITIAL_SPEED = 100;
 
-class SelectionSort extends React.Component { 
+class SwapSort extends React.Component { 
   constructor(props) {
     super(props);
     const initialArr = this.randomArr(INITIAL_ARR_SIZE);
@@ -25,7 +26,7 @@ class SelectionSort extends React.Component {
       array: initialArr,
       sortAlgo: 'simple',
       randomArrSize: INITIAL_ARR_SIZE,
-      stepSpeed: 100
+      stepSpeed: INITIAL_SPEED
     };
   }
   
@@ -33,12 +34,12 @@ class SelectionSort extends React.Component {
   randomArr = (size) => {
     let newArr = [];
     for (let i = 0; i < size; ++i) {
-      newArr.push(Math.floor(Math.random() * 99 + 1));
+      newArr.push(Math.floor(Math.random() * 95 + 5));
     }
     return newArr;
   };
 
-  // setTimeout and setInterval variable
+  // setTimeout and setInterval variable for clearTimeout and clearInterval
   animation = null;
   doneAnimate = null;
   
@@ -60,9 +61,9 @@ class SelectionSort extends React.Component {
     // Animating based on operation logs
     let i = 0; // controling loop
     this.animation = setInterval(() => {
+      // Exit the timed loop when done iterating logs
       if (i >= logs.length)
       {
-        // Exit the timed loop when done iterating logs
         clearInterval(this.animation);
       }
       else {
@@ -95,8 +96,9 @@ class SelectionSort extends React.Component {
         // incrementing i for the next iteration
         ++i;
       }
-    }, this.state.stepSpeed);
+    }, this.state.stepSpeed); // End setInterval
     
+    // When animation is done
     this.doneAnimate = setTimeout (() => {
       this.setState({array: sortedArr}); // Set array state to the sorted one
 
@@ -106,9 +108,10 @@ class SelectionSort extends React.Component {
         bar.style.backgroundColor = SORTED_COLOR;
         bar.style.order = 0;
       }
-    }, logs.length * this.state.stepSpeed);
+    }, logs.length * this.state.stepSpeed); // End setTimeout
   };
 
+  // When abort btn is clicked
   abortClickedHandler = () => {
     clearInterval(this.animation);
     clearTimeout(this.doneAnimate);
@@ -122,15 +125,18 @@ class SelectionSort extends React.Component {
     }
   }
 
+  // When sort button is clicked
   sortClickedHandler = () => {
     this.abortClickedHandler(); // Abort in case sortin
     this.sortHandler(this.state.sortAlgo);
   };
-
+  
+  // When an algorithm button is clicked
   changeAlgoHandler = (algoType) => {
     this.setState({sortAlgo: algoType});
   };
 
+  // When random button is clicked
   clickRandomHandler = () => {
     this.abortClickedHandler(); // Abort in case sortin
 
@@ -144,29 +150,32 @@ class SelectionSort extends React.Component {
       bar.style.backgroundColor = UNSORTED_COLOR;
     }
   };
-
+  
+  // Update speed when slider input is changed
   changeSpeedHandler = (newSpeed) => {
     this.setState({stepSpeed: newSpeed});
   }
 
+  // Update random array size when slider input is changed
   changeArrSizeHandler = (newSize) => {
-    console.log(newSize);
     this.setState({randomArrSize: newSize});
   }
 
+/*
   // For testing
   testHandler = () => {
   };
 
   componentDidUpdate() {
-    console.log('[SelectionSort.js] componentDidUpdate');
+    console.log('[SwapSort.js] componentDidUpdate');
   }
+*/
 
   render() {
     return (
       <Aux>
         <h1>Sorting Visualizer</h1>
-        <SelectionVisualizer 
+        <Bars 
           array={this.state.array}/>
         <ControlPanel 
           array={this.state.array}
@@ -175,16 +184,18 @@ class SelectionSort extends React.Component {
           changeSpeed={this.changeSpeedHandler}
           randomClicked={this.clickRandomHandler}
           currentAlgo={this.state.sortAlgo}
+          arrSize={this.state.randomArrSize}
+          speed={this.state.stepSpeed}
           sortClicked={this.sortClickedHandler}
           selectionClicked={this.changeAlgoHandler.bind(this, 'selection')}
           bubbleClicked={this.changeAlgoHandler.bind(this, 'bubble')}
           insertionClicked={this.changeAlgoHandler.bind(this, 'insertion')}
           simpleClicked={this.changeAlgoHandler.bind(this, 'simple')}/>
-        <button onClick={this.testHandler}>Test</button>
+        {/*<button onClick={this.testHandler}>Test</button>*/}
       </Aux>
     );
   }
 }
 
 
-export default SelectionSort;
+export default SwapSort;

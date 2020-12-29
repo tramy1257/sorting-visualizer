@@ -41,18 +41,18 @@ const controlPanel = (props) => {
             <div className={classes.SliderAndLabel}>
               <label>Sorting Speed: </label>
               <input 
-                min='10' max='500'
-                step='10'
-                type='range' 
+                min='10' max='500' step='10' type='range' 
+                value={props.speed}
                 onChange={event => props.changeSpeed(event.target.value)}
+                style={{direction: 'rtl'}}
                 className={classes.slider}/>
             </div>
             <div className={classes.SliderAndLabel}>
               <label>Random Array Size: </label>
               <input 
-                min='5' max='50'
-                step='5'
-                type='range' 
+                min='5' max='50' step='5' type='range' 
+                value={props.arrSize}
+                style={{direction: 'ltr'}}
                 onChange={event => props.changeArrSize(event.target.value)}
                 className={classes.slider}/>
             </div>

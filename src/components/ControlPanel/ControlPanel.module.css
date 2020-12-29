@@ -106,6 +106,7 @@ hr {
   -webkit-transition: .2s;
   transition: opacity .2s;
   margin-left: 10px;
+  direction: rtl;
 }
 
 .slider:hover {

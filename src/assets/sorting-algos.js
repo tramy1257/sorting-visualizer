@@ -71,6 +71,62 @@ function quickSort(arr) {
 // -------- Heap Sort --------
 
 // -------- Merge Sort --------
+function mergeSort(array) {
+  // Write your code here.
+	const mergeSortRecurse = (array, left, right) => {
+		// Divide the array into 2 smaller array with indices: l1 to r1, l2 to r2
+		const l2 = left + Math.floor((right - left + 1) / 2);
+		const r2 = right;
+		const l1 = left;
+		const r1 = l2 - 1;
+		
+		// Base case: when array only have 1 element
+		if (left >= right) {
+			return true;
+		}
+		
+		// Recurse on left and right array
+		mergeSortRecurse(array, l1, r1);
+		mergeSortRecurse(array, l2, r2);
+		
+		// Merge the 2 array back
+		merge(array, l1, r1, l2, r2);
+	}; // end mergeSortRecurse()
+	
+	mergeSortRecurse(array, 0, array.length - 1);
+	
+	return array;
+}
+
+function merge(array, l1, r1, l2, r2) {
+	let sorted = [];
+	const start = l1;	// To keep track of the first index
+	
+	// Fill sorted with elements from both array until one runs out of element
+	while (l1 <= r1 && l2 <= r2) {
+		if (array[l1] < array[l2]) {
+			sorted.push(array[l1]);
+			++l1;
+		}
+		else {
+			sorted.push(array[l2]);
+			++l2;
+		}
+	} // end while
+
+	// Fill the sorted array with the remaining of any array
+	if (l1 <= r1) {
+		sorted.push(...array.slice(l1, r1 + 1));
+	}	
+	if (l2 <= r2) {
+		sorted.push(...array.slice(l2, r2 + 1));
+	}
+	
+	// Copy the sorted result back into the array
+	for (let i = 0; i < sorted.length; ++i) {
+		array[start + i] = sorted[i];
+	}
+}
 
 // -------- Count Sort --------
 
